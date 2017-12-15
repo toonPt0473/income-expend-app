@@ -25,7 +25,6 @@ export class Dashboard extends Component {
   }
 
   async componentDidMount() {
-    console.log(this.props)
     //dev login for session data
     if(process.env.NODE_ENV === 'development'){
       await this.props.devLogin(null , null , this.props.history)
@@ -83,11 +82,11 @@ export class Dashboard extends Component {
   }
 
   render() {
-    //console.log(new Date("2015" + "non-set") == "Invalid Date")
+    console.log(this.props)
     return (
       <div>
           <div className="block" style={{textAlign: "right"}}>
-            <a className=" button is-medium is-light" href='/logout'>Log Out</a>
+            <a className=" button is-medium is-danger" href='/logout'>Log Out</a>
           </div>
 
           <div className="field is-grouped">
@@ -122,12 +121,8 @@ export class Dashboard extends Component {
             </p>
           </div>
 
-        <RenderTable day={this.state.day} month={this.state.month} year={this.state.year}/>
+        <RenderTable day={this.state.day} month={this.state.month} year={this.state.year} activeModal={() => this.setState({modalActive: true})}/>
 
-        <div className="block" style={{textAlign: "center"}}>
-          <button className="button is-light" onClick={() => this.setState({modalActive: true})}> ADD STATEMENT THIS DAY</button>
-        </div>
-        
         <div className={`modal ${this.state.modalActive ? "is-active" : ""}`}>
           <div className="modal-background"></div>
             <div className="modal-card">

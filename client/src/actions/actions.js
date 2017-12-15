@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const devLogin = (username , password) => {
     return async dispatch => {
-        await axios.post('/login' , {username: username || "toonpt0473" , password: password || "3074621"})
+        await axios.post('/login' , {username: username || "hello" , password: password || "3074621"})
     }
     
     
