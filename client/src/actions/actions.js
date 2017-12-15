@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const devLogin = (username , password) => {
     return async dispatch => {
-        await axios.post('/login' , {username: username || "toonpt" , password: password || "3074621"})
+        await axios.post('/login' , {username: username || "toonpt0473" , password: password || "3074621"})
     }
     
     
@@ -18,6 +18,7 @@ export const fetchStatement = () => {
 export const sendFormStatement = (values) => {
     return async dispatch => {
         const res = await axios.post('/api/new/statement' , values)
+        //window.location.reload();
         dispatch({type: "SEND_NEW_STATEMENT" , payload: res})
     }
 }

@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import RenderTable from './RenderTable'
-
-import * as actions from '../actions/actions'
+import RenderTable from './RenderTable';
+import * as actions from '../actions/actions';
 
 const uuidv4 = require('uuid/v4');
 
@@ -26,10 +25,10 @@ export class Dashboard extends Component {
   }
 
   async componentDidMount() {
-    
+    console.log(this.props)
     //dev login for session data
     if(process.env.NODE_ENV === 'development'){
-      await this.props.devLogin()
+      await this.props.devLogin(null , null , this.props.history)
     }
     await this.props.fetchStatement()
   }
@@ -62,7 +61,9 @@ export class Dashboard extends Component {
       income: this.refs.income.checked,
       date
     }
-    this.props.sendFormStatement(values)
+    await this.props.sendFormStatement(values , this.props.history)
+    this.props.fetchStatement()
+    this.setState({modalActive: false , validateAmount: true , validateDate: true , validateList: true , list: "" , amount: ""})
     }
 
   renderDateOption(value){

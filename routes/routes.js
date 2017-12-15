@@ -13,7 +13,7 @@ module.exports = function(app, passport, express) {
         });
     
         app.post('/login', passport.authenticate('local-login', {
-            successRedirect : '/profile',
+            successRedirect : '/dashboard',
             failureRedirect : '/login',
             failureFlash : true
         }));
@@ -23,7 +23,7 @@ module.exports = function(app, passport, express) {
         });
     
         app.post('/signup', passport.authenticate('local-signup', {
-            successRedirect : '/profile', 
+            successRedirect : '/dashboard', 
             failureRedirect : '/signup',
             failureFlash : true 
         }));
@@ -53,7 +53,7 @@ module.exports = function(app, passport, express) {
             })
             newStatement.save((err ,statements) => {
                 if(err) throw err;
-                res.redirect('/dashboard')
+                res.send(statements)
             })
         })
 

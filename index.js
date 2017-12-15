@@ -5,13 +5,13 @@ const port = process.env.PORT || 8888;
 const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
-
+const keys = require('./config/keys')
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const isLoggedIn = require('./middleware/isLoggedIn')
 
-mongoose.connect('mongodb://ttoonoott:3074621a0473@ds135866.mlab.com:35866/income-expense');
+mongoose.connect(keys.mongourl);
 
 require('./config/passport')(passport); 
 app.use(morgan('dev'));
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs'); 
 
 app.use(session({ 
-    secret: 'toonpttoonpttoonpttoonpt',
+    secret: keys.cookieKey,
     cookie: { maxAge: 2592000000 },
     resave: false,
     saveUninitialized: false

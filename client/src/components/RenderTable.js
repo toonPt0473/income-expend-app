@@ -29,8 +29,8 @@ const renderBody = (filterStatement) => {
             <tr key={uuidv4()}>
                 <th>{statement.date.dateFormat}</th>
                 <th>{statement.list}</th>
-                <th>{statement.income === true ? statement.amount : ""}</th>
-                <th>{statement.income === false ? statement.amount : ""}</th>
+                <th>{statement.income === true ? Number(statement.amount) : ""}</th>
+                <th>{statement.income === false ? Number(statement.amount) : ""}</th>
                 <th style={{textAlign: "center"}}>
                     <a className="button is-danger" href={`/api/delete/statement/${statement._id}`}>Delete</a>
                 </th>
