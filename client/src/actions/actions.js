@@ -14,3 +14,10 @@ export const fetchStatement = () => {
         dispatch({type: "FETCH_STATEMENT" , payload: res})
     }
 }
+
+export const sendFormStatement = (values) => {
+    return async dispatch => {
+        const res = await axios.post('/api/new/statement' , values)
+        dispatch({type: "SEND_NEW_STATEMENT" , payload: res})
+    }
+}

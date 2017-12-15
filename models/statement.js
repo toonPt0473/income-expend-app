@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const statementSchema = mongoose.Schema({
-    date: {type: Date , default: new Date()},
+    date: {},
     list: String,
     amount: String,
     income: Boolean,

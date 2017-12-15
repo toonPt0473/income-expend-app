@@ -42,12 +42,20 @@ module.exports = function(app, passport, express) {
         })
 
         app.post('/api/new/statement' , isLoggedIn ,(req , res) => {
-            const { list , income , amount } = req.body;
+            const { list , income , amount , date} = req.body;
+            const dateModel = new Date()
             const newStatement = new Statement({
                 list,
                 income,
                 amount,
-                _user: req.user.id
+                _user: req.user.id,
+                date: {
+                    day: dateModel.getDate().toString(),
+                    month: (dateModel.getMonth() + 1).toString(),
+                    year: dateModel.getFullYear().toString(),
+                    dateFormat: `${dateModel.getFullYear().toString()}-${(dateModel.getMonth() + 1).toString()}-${dateModel.getDate().toString()}`,
+                    time: dateModel.getTime()
+                }
             })
             newStatement.save((err ,statements) => {
                 if(err) throw err;
