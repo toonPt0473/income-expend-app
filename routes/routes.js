@@ -43,23 +43,17 @@ module.exports = function(app, passport, express) {
 
         app.post('/api/new/statement' , isLoggedIn ,(req , res) => {
             const { list , income , amount , date} = req.body;
-            const dateModel = new Date()
+            console.log(list , income , amount , date)
             const newStatement = new Statement({
                 list,
                 income,
                 amount,
                 _user: req.user.id,
-                date: {
-                    day: dateModel.getDate().toString(),
-                    month: (dateModel.getMonth() + 1).toString(),
-                    year: dateModel.getFullYear().toString(),
-                    dateFormat: `${dateModel.getFullYear().toString()}-${(dateModel.getMonth() + 1).toString()}-${dateModel.getDate().toString()}`,
-                    time: dateModel.getTime()
-                }
+                date
             })
             newStatement.save((err ,statements) => {
                 if(err) throw err;
-                res.send(statements)
+                res.redirect('/dashboard')
             })
         })
 
@@ -70,7 +64,7 @@ module.exports = function(app, passport, express) {
         app.get('/api/delete/statement/:id' , isLoggedIn , (req ,res) => {
             Statement.findOneAndRemove({_id : req.params.id} , (err , data) => {
                 if(err) throw err;
-                res.send(data)
+                res.redirect('/dashboard')
             })
         })
     

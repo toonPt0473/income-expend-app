@@ -11,15 +11,20 @@
     <div class="container">
     
         <div class="jumbotron text-center">
-            <h1><span class="fa fa-lock"></span> Node Authentication</h1>
+            <h1><span class="fa fa-pencil-square-o"></span> INCOME & EXPEND ACCOUNT </h1>
     
             
             <% if(!user){ %>
-                <p>Login or Register with:</p>
+                <br />
+                <p>Login or Register</p>
+                <br />
                 <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
                 <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
             <% }else{ %>
-                <a href="/recording" class="btn btn-default"><span class="fa fa-user"></span> Go to Dashboard</a>
+                <br />
+                <h2>You're Logined</h2>
+                <br />
+                <a href="/dashboard" class="btn btn-default"><span class="fa fa-user"></span> Go to Your Dashboard</a>
             <% } %>
         </div>
     
