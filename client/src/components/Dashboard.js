@@ -76,13 +76,15 @@ export class Dashboard extends Component {
         return <option key={uuidv4()}>{index + 1}</option>
       })
     }
-    return new Array(100).fill(null).map((day , index) => {
-      return <option key={uuidv4()}>{index + 2000}</option>
-    })
+    if(value === "year"){
+      return new Array(100).fill(null).map((day , index) => {
+        return <option key={uuidv4()}>{index + 2000}</option>
+      })
+    }
+    return <div><option key={uuidv4()}>render error</option></div>
   }
 
   render() {
-    console.log(this.props)
     return (
       <div>
           <div className="block" style={{textAlign: "right"}}>

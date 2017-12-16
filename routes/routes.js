@@ -1,6 +1,7 @@
 const isLoggedIn = require('../middleware/isLoggedIn');
 const User = require('../models/user');
-const Statement = require('../models/statement')
+const Statement = require('../models/statement');
+const keys = require('../config/keys')
 
 module.exports = function(app, passport, express) {
 
@@ -9,17 +10,17 @@ module.exports = function(app, passport, express) {
         });
 
         app.get('/login', function(req, res) {    
-            res.render('login.ejs', { message: req.flash('loginMessage') }); 
+            res.render('login.ejs', { message: req.flash('loginMessage') , user : req.user}); 
         });
     
         app.post('/login', passport.authenticate('local-login', {
-            successRedirect : '/dashboard',
+            successRedirect : keys.successLoginRedirect,
             failureRedirect : '/login',
             failureFlash : true
         }));
 
         app.get('/signup', function(req, res) {
-            res.render('signup.ejs', { message: req.flash('signupMessage') });
+            res.render('signup.ejs', { message: req.flash('signupMessage') , user : req.user});
         });
     
         app.post('/signup', passport.authenticate('local-signup', {
