@@ -22,3 +22,10 @@ export const sendFormStatement = (values) => {
         dispatch({type: "SEND_NEW_STATEMENT" , payload: res})
     }
 }
+
+export const EditStatement = (values) => {
+    return async dispatch => {
+        const res = await axios.post('/api/update/statement' , values)
+        dispatch({type: "EDIT_NEW_STATEMENT" , payload: res})
+    }
+}

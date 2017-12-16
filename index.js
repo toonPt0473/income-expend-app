@@ -14,7 +14,7 @@ const isLoggedIn = require('./middleware/isLoggedIn')
 mongoose.connect(keys.mongourl);
 
 require('./config/passport')(passport); 
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true})); 
 

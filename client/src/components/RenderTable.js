@@ -1,5 +1,6 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const uuidv4 = require('uuid/v4');
 
@@ -29,9 +30,12 @@ const renderBody = (filterStatement) => {
             <tr key={uuidv4()}>
                 <th>{statement.date.dateFormat}</th>
                 <th>{statement.list}</th>
-                <th>{statement.income === true ? Number(statement.amount) : ""}</th>
-                <th>{statement.income === false ? Number(statement.amount) : ""}</th>
-                <th style={{textAlign: "center"}}>
+                <th style={{color: "rgb(0, 165, 0)"}}>{statement.income === true ? Number(statement.amount) : ""}</th>
+                <th style={{color: "rgb(235, 110, 110)"}}>{statement.income === false ? Number(statement.amount) : ""}</th>
+                <th style={{textAlign: "right"}}>
+                    <Link to={`/dashboard/${statement._id}`}> 
+                        <button className="button" style={{marginRight: 15}}>Edit</button>
+                    </Link>
                     <a className="button is-danger" href={`/api/delete/statement/${statement._id}`}>Delete</a>
                 </th>
             </tr>
@@ -45,9 +49,9 @@ const renderSumRow = filterStatement => {
     return (
         <tr key={uuidv4()}>
             <th></th>
-            <th>Total</th>
-            <th>{income}</th>
-            <th>{expend}</th>
+            <th style={{color: `${income >= expend ? "green" : "red"}`}}>Total</th>
+            <th style={{color: `${income >= expend ? "green" : "red"}`}}>{income}</th>
+            <th style={{color: `${income >= expend ? "green" : "red"}`}}>{expend}</th>
             <th></th>
         </tr>
     )

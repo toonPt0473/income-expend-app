@@ -60,7 +60,7 @@ export class Dashboard extends Component {
       income: this.refs.income.checked,
       date
     }
-    await this.props.sendFormStatement(values , this.props.history)
+    await this.props.sendFormStatement(values)
     this.props.fetchStatement()
     this.setState({modalActive: false , validateAmount: true , validateDate: true , validateList: true , list: "" , amount: ""})
     }

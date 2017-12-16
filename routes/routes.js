@@ -44,7 +44,6 @@ module.exports = function(app, passport, express) {
 
         app.post('/api/new/statement' , isLoggedIn ,(req , res) => {
             const { list , income , amount , date} = req.body;
-            console.log(list , income , amount , date)
             const newStatement = new Statement({
                 list,
                 income,
@@ -59,7 +58,16 @@ module.exports = function(app, passport, express) {
         })
 
         app.post('/api/update/statement' , isLoggedIn , (req , res) => {
-            //findoneandupdate
+            const { list , amount , income , id } = req.body;
+            const updateObj = {
+                list,
+                amount,
+                income
+            }
+            Statement.findByIdAndUpdate(id, updateObj, {new: true}, (err, model) => {
+                if(err) throw err ;
+                res.send(model)
+            })
         })
 
         app.get('/api/delete/statement/:id' , isLoggedIn , (req ,res) => {

@@ -1,10 +1,8 @@
 import React from "react";
 import { BrowserRouter , Route , Switch } from 'react-router-dom';
-//import { connect } from "react-redux";
-//import * as actions from '../action';
-//import Header from './Header';
-import Dashboard from './components/Dashboard'
-import NotFound from './components/NotFound'
+import Dashboard from './components/Dashboard';
+import NotFound from './components/NotFound';
+import EditList from './components/EditList'
 
 class App extends React.Component{
     render(){
@@ -14,6 +12,7 @@ class App extends React.Component{
               <div className='container'>
                 <Switch>
                   <Route path="/dashboard" component={Dashboard} exact />
+                  <Route path="/dashboard/:id" component={EditList} exact />
                   <Route component={NotFound} exact />
                 </Switch>
               </div>
