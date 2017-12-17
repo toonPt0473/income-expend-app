@@ -73,7 +73,7 @@ module.exports = function(app, passport, express) {
         app.get('/api/delete/statement/:id' , isLoggedIn , (req ,res) => {
             Statement.findOneAndRemove({_id : req.params.id} , (err , data) => {
                 if(err) throw err;
-                res.redirect('/dashboard')
+                res.send(data)
             })
         })
     

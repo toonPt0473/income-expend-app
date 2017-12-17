@@ -54,11 +54,11 @@ export class EditList extends Component {
                         <div className="field is-narrow">
                             <div className="control">
                             <label className="radio">
-                                <input type="radio" name="income" ref="income" defaultChecked/>
+                                <input type="radio" name="income" ref="income" defaultChecked={filterStatement.income ? true : false}/>
                                 &nbsp;INCOME&nbsp;
                             </label>
                             <label className="radio">
-                                <input type="radio" name="income" />
+                                <input type="radio" name="income" defaultChecked={filterStatement.income ? false : true}/>
                                 &nbsp;EXPEND&nbsp;
                             </label>
                             </div>

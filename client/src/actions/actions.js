@@ -29,3 +29,10 @@ export const EditStatement = (values) => {
         dispatch({type: "EDIT_NEW_STATEMENT" , payload: res})
     }
 }
+
+export const deleteList = (id) => {
+    return async dispatch => {
+        const res = await axios.get(`/api/delete/statement/${id}`)
+        dispatch({type: "DELETE_STATEMENT" , payload: res})
+    }
+}

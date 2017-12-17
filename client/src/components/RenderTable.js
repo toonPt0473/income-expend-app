@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import * as actions from '../actions/actions'
 
 const uuidv4 = require('uuid/v4');
 
@@ -19,7 +20,11 @@ const filter = (items , year , month , day) => {
 }
 
 
-const renderBody = (filterStatement) => {
+const renderBody = (filterStatement , deleteList , fetchStatement) => {
+    const deleteAndFetchList = async (id) => {
+        await deleteList(id);
+        fetchStatement()
+    }
     if(filterStatement.length === 0) {
         return  <tr>
                     <th colSpan="5" style={{textAlign: "center"}}><strong>Not have any List on this Date</strong></th>
@@ -32,11 +37,12 @@ const renderBody = (filterStatement) => {
                 <th>{statement.list}</th>
                 <th style={{color: "rgb(0, 165, 0)"}}>{statement.income === true ? Number(statement.amount) : ""}</th>
                 <th style={{color: "rgb(235, 110, 110)"}}>{statement.income === false ? Number(statement.amount) : ""}</th>
+                <th></th>
                 <th style={{textAlign: "right"}}>
                     <Link to={`/dashboard/${statement._id}`}> 
                         <button className="button" style={{marginRight: 15}}>Edit</button>
                     </Link>
-                    <a className="button is-danger" href={`/api/delete/statement/${statement._id}`}>Delete</a>
+                    <button className="button is-danger" onClick={() => deleteAndFetchList(statement._id)}>Delete</button>
                 </th>
             </tr>
         )
@@ -52,13 +58,14 @@ const renderSumRow = filterStatement => {
             <th style={{color: `${income >= expend ? "green" : "red"}`}}>Total</th>
             <th style={{color: `${income >= expend ? "green" : "red"}`}}>{income}</th>
             <th style={{color: `${income >= expend ? "green" : "red"}`}}>{expend}</th>
+            <th style={{color: `${income >= expend ? "green" : "red"}`}}>{income - expend}</th>
             <th></th>
         </tr>
     )
 }
 
 const RenderTable = (props) => {
-    const { userStatements , year , month , day } = props;
+    const { userStatements , year , month , day , deleteList , fetchStatement } = props;
     
     if(!userStatements) {
       return <div className="containerLoader"><div className="loader"></div></div>
@@ -75,16 +82,17 @@ const RenderTable = (props) => {
                             <th>List</th>
                             <th>Income</th>
                             <th>Expend</th>
+                            <th>Summarize</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {renderBody(filterStatement)}
+                        {renderBody(filterStatement , deleteList , fetchStatement)}
                         {filterStatement.length > 0 ? renderSumRow(filterStatement) : null}
                     </tbody>
                 </table>
                 <div className="block" style={{textAlign: "center"}}>
-                    <button className="button is-primary" onClick={props.activeModal}> ADD STATEMENT THIS DAY</button>
+                    <button className="button is-primary" onClick={props.activeModal}>ADD STATEMENT THIS DAY</button>
                 </div>
             </div>
         )    
@@ -92,7 +100,7 @@ const RenderTable = (props) => {
     return <div></div>  
   }
 
-export default connect(state => state)(RenderTable)
+export default connect(state => state , actions)(RenderTable)
 
 
 
