@@ -198,7 +198,7 @@ export class Dashboard extends Component {
                 <button className="button is-success" onClick={this.handleSubmit}>Add</button>
                 <button 
                   className="button" 
-                  onClick={() => this.setState({modalActive: false , validateAmount: true , validateDate: true , validateList: true , list: "" , amount: null})}
+                  onClick={() => this.setState({modalActive: false , validateAmount: true , validateDate: true , validateList: true , list: "" , amount: ""})}
                 >Cancel</button>
               </footer>
             </div>
